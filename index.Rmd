@@ -12,6 +12,7 @@ params:
   year: 2021
   month: 3
 link-citations: yes
+new_session: yes
 ---
 
 ```{r libraries, echo=FALSE}
@@ -34,14 +35,17 @@ devtools::install_github("uashogeschoolutrecht/toolboxr")
 ```
 
 ```{r setup, echo=FALSE}
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 ```
 
-
-
-<img src="images/cv_header.jpg" alt="Header">
-
 # Curriculum Vitae {-}
+
+<img src="images/resume.jpg"
+     width="400" 
+     height="400" />
 
 ----
 
