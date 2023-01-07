@@ -23,8 +23,6 @@ knitr::kable(criteria_adhd, caption = "Table showing how the article scored on r
 
 Overall, I give this article a 8.5/10 on reproducibility. It's clear what the writers of this article want to put forward, even if no code is provided. 
 
-##############################################################################
-
 For the second part of the assignment I will have to use the code provided with an article. I will have to try and understand the code, explain what it does and even try to make at least one figure.
 
 ### The article 
