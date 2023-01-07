@@ -22,7 +22,7 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 library(here)
 ```
 
-<img src="images/cv_photo_header.jpg" alt="Header">
+<img src="images/cv_header.jpg" alt="Header">
 
 # Curriculum Vitae {-}
 
