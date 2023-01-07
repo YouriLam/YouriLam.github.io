@@ -1,0 +1,67 @@
+---
+title: "Portfolio"
+author: "Youri Lam"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: bibliography.bib
+biblio-style: apalike
+params:
+  country: "Netherlands"
+  year: 2021
+  month: 3
+link-citations: yes
+---
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+```
+
+```{r libraries, echo=FALSE}
+library(here)
+```
+
+<img src="images/cv_photo_header.jpg" alt="Header">
+
+# Curriculum Vitae {-}
+
+----
+
+## Contact {-}
+<i class="fa fa-home"></i> Barneveld, The Netherlands<br>
+<i class="fa fa-envelope"></i> yourilam2001@gmail.com
+<i class="fa fa-phone"></i> +31 6 21203760
+<i class="fa fa-github"></i> [github.com/YouriLam](https://github.com/YouriLam)
+
+----
+
+## Profile {-}
+I am a young, studious, determined, curious student with a passion for biomedical research. Although my interests mainly lie in lab work, I am also very much at home in bioinformatics. By combining both interests I see myself as an asset in the development of data analysis and biomedical research.
+
+----
+
+## Education {-}
+__Hogeschool Utrecht__\
+_Bachelor of Science - BS, Life Sciences, Sep. 2019 - Aug. 2024_\
+Specialized in Data Sciences for Biology\
+
+## Experience {-}
+__Eurofins Analytico B.V. - Barneveld__\
+_Pre-treatment Organic Substances Nov. 2021 - Present_\
+
+
+__Coop BV - Barneveld__\
+_Sales Associate, Nov. 2016 - Nov. 2021_
+
+## Skills {-}
+R programming language\
+Bash command language\
+SQL\
+Excel\
+CSS stylesheet language\
+(Cell) culture
+
+## Languages {-}
+Dutch - native speaker\
+English - C1
