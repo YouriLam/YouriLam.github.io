@@ -44,8 +44,8 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 # Curriculum Vitae {-}
 
 <img src="images/resume.jpg"
-     width="250" 
-     height="400" />
+     width="300" 
+     height="350" />
 
 ----
 
