@@ -6,16 +6,6 @@ output: html_document
 bibliography: portfolio_library.bib
 ---
 
-```{r reproducibleresearchlibraries, include=FALSE}
-library(tidyverse)
-library(knitr)
-library(here)
-library(dplyr)
-library(reshape2)
-library(lme4)
-library(broom.mixed)
-```
-
 For the first part of the assignment I will have ato check the reproduction of an article, based on the 'Repita' criteria [@sumnerReproducibilityReportingPractices2020]. These criteria are used to check for the reproducibility of scientific research articles. In the table below the different criteria are shown with a definition and the type of response it calls for.
 
 ```{r criteria table}
@@ -168,5 +158,5 @@ I didn't have any trouble reading the code, or understanding what needed to happ
 ```{r bibiography}
 library(rbbt)
 
-bbt_update_bib("portfolio_assignment_1.2.rmd")
+bbt_update_bib("Workflows_Portfolio_1.2.rmd")
 ```

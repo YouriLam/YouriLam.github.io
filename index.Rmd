@@ -14,13 +14,30 @@ params:
 link-citations: yes
 ---
 
+```{r libraries, echo=FALSE}
+library(here)
+library(knitr)
+library(fs) 
+library(readxl)
+library(tidyverse)
+library(toolboxr)
+library(ggplot2)
+library(patchwork)
+library(cowplot)
+library(devtools)
+library(knitr)
+library(dplyr)
+library(reshape2)
+library(lme4)
+library(broom.mixed)
+devtools::install_github("uashogeschoolutrecht/toolboxr")
+```
+
 ```{r setup, echo=FALSE}
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 ```
 
-```{r libraries, echo=FALSE}
-library(here)
-```
+
 
 <img src="images/cv_header.jpg" alt="Header">
 

@@ -1,0 +1,4 @@
+fig:errorplot
+fig:scatterplotelegans
+fig:normalizedplot
+fig:screenshot
