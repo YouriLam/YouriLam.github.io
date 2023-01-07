@@ -2,3 +2,10 @@ fig:errorplot
 fig:scatterplotelegans
 fig:normalizedplot
 fig:screenshot
+analyzing-and-visualizing-data
+preparing-the-data
+normalizing-the-data
+reproducible-research
+the-article
+the-code
+data-management

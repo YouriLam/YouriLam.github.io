@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Portfolio</title>
-  <meta name="description" content="Portfolio" />
+  <title>Chapter 3 Data Management | Portfolio</title>
+  <meta name="description" content="Chapter 3 Data Management | Portfolio" />
   <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Portfolio" />
+  <meta property="og:title" content="Chapter 3 Data Management | Portfolio" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Portfolio" />
+  <meta name="twitter:title" content="Chapter 3 Data Management | Portfolio" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="02_reproducible_research.html"/>
 
-<link rel="next" href="01_elegans_experiment.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -190,63 +190,28 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Portfolio</h1>
-<p class="author"><em>Youri Lam</em></p>
-<p class="date"><em>2023-01-07</em></p>
-</div>
-<pre><code>## Skipping install of &#39;toolboxr&#39; from a github remote, the SHA1 (e43ee4ec) has not changed since last install.
-##   Use `force = TRUE` to force installation</code></pre>
-<pre><code>## Warning in utils::citation(..., lib.loc = lib.loc): no date field in DESCRIPTION file of package &#39;rbbt&#39;</code></pre>
-<pre><code>## Warning in utils::citation(..., lib.loc = lib.loc): no date field in DESCRIPTION file of package &#39;toolboxr&#39;</code></pre>
-<div id="curriculum-vitae" class="section level1 unnumbered">
-<h1>Curriculum Vitae</h1>
-<p><img src="images/resume.jpg"
-     width="400" 
-     height="400" /></p>
-<hr />
-<div id="contact" class="section level2 unnumbered">
-<h2>Contact</h2>
-<p><i class="fa fa-home"></i> Barneveld, The Netherlands<br>
-<i class="fa fa-envelope"></i> <a href="mailto:yourilam2001@gmail.com" class="email">yourilam2001@gmail.com</a>
-<i class="fa fa-phone"></i> +31 6 21203760
-<i class="fa fa-github"></i> <a href="https://github.com/YouriLam">github.com/YouriLam</a></p>
-<hr />
-</div>
-<div id="profile" class="section level2 unnumbered">
-<h2>Profile</h2>
-<p>I am a young, studious, determined, curious student with a passion for biomedical research. Although my interests mainly lie in lab work, I am also very much at home in bioinformatics. By combining both interests I see myself as an asset in the development of data analysis and biomedical research.</p>
-<hr />
-</div>
-<div id="education" class="section level2 unnumbered">
-<h2>Education</h2>
-<p><strong>Hogeschool Utrecht</strong><br />
-<em>Bachelor of Science - BS, Life Sciences, Sep. 2019 - Aug. 2024</em><br />
-Specialized in Data Sciences for Biology<br />
+<div id="data-management" class="section level1" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Data Management</h1>
+<p>To keep my data manageable I use the Guerilla Analytics framework. Using this method, every project/part of my lessons are in different folders. There is also a README included to give extra information about the way it’s set up. For this assignment, we had to make our DAURII workspace tidy using this framework. You can see that is done here below:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="03_guerilla_framework.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dir_tree</span>(<span class="st">&quot;C:/Users/Youri/OneDrive/Bureaublad/daur2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="03_guerilla_framework.html#cb28-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="fu">here</span>(<span class="st">&quot;images/directory_tree.png&quot;</span>))</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:screenshot"></span>
+<img src="images/directory_tree.png" alt="Screenshot of my directory tree" width="226" />
+<p class="caption">
+Figure 3.1: Screenshot of my directory tree
 </p>
 </div>
-<div id="experience" class="section level2 unnumbered">
-<h2>Experience</h2>
-<p><strong>Eurofins Analytico B.V. - Barneveld</strong><br />
-<em>Pre-treatment Organic Substances Nov. 2021 - Present</em><br />
-</p>
-<p><strong>Coop BV - Barneveld</strong><br />
-<em>Sales Associate, Nov. 2016 - Nov. 2021</em></p>
-</div>
-<div id="skills" class="section level2 unnumbered">
-<h2>Skills</h2>
-<p>R programming language<br />
-Bash command language<br />
-SQL<br />
-Excel<br />
-CSS stylesheet language<br />
-(Cell) culture</p>
-</div>
-<div id="languages" class="section level2 unnumbered">
-<h2>Languages</h2>
-<p>Dutch - native speaker<br />
-English - C1</p>
 
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div class="csl-entry">
+Buecker, Susanne, Kai T. Horstmann, Julia Krasko, Sarah Kritzler, Sophia Terwiel, Till Kaiser, and Maike Luhmann. 2020. <span>“Changes in Daily Loneliness for <span>German</span> Residents During the First Four Weeks of the <span>COVID-19</span> Pandemic.”</span> <em>Social Science &amp; Medicine</em> 265 (November): 113541. <a href="https://doi.org/10.1016/j.socscimed.2020.113541">https://doi.org/10.1016/j.socscimed.2020.113541</a>.
+</div>
+<div class="csl-entry">
+Chen, Vincent Chin-Hung, Tsai-Ching Hsu, Li-Jeng Chen, Hong-Chun Chou, Jun-Cheng Weng, and Bor-Show Tzang. 2017. <span>“Effects of Taurine on Resting-State <span class="nocase">fMRI</span> Activity in Spontaneously Hypertensive Rats.”</span> Edited by Yi-Hsien Hsieh. <em>PLOS ONE</em> 12 (7): e0181122. <a href="https://doi.org/10.1371/journal.pone.0181122">https://doi.org/10.1371/journal.pone.0181122</a>.
+</div>
+<div class="csl-entry">
+Sumner, Josh, Leah Haynes, Sarah Nathan, Cynthia Hudson-Vitale, and Leslie D. McIntosh. 2020. <span>“Reproducibility and Reporting Practices in <span>COVID-19</span> Preprint Manuscripts.”</span> Preprint. <span>Health Informatics</span>. <a href="https://doi.org/10.1101/2020.03.24.20042796">https://doi.org/10.1101/2020.03.24.20042796</a>.
+</div>
 </div>
 </div>
             </section>
@@ -254,8 +219,8 @@ English - C1</p>
           </div>
         </div>
       </div>
+<a href="02_reproducible_research.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="01_elegans_experiment.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -286,7 +251,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/YouriLam/YouriLam.github.io/edit/main/index.Rmd",
+"link": "https://github.com/YouriLam/YouriLam.github.io/edit/main/03_guerilla_framework.Rmd",
 "text": "Edit"
 },
 "history": {
