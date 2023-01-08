@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="02_reproducible_research.html"/>
-<link rel="next" href="07_Relational_Databases.html"/>
+<link rel="next" href="06_parameter.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -172,7 +172,16 @@ div.csl-indent {
 <li class="chapter" data-level="2.0.1" data-path="02_reproducible_research.html"><a href="02_reproducible_research.html#the-article"><i class="fa fa-check"></i><b>2.0.1</b> The article</a></li>
 <li class="chapter" data-level="2.0.2" data-path="02_reproducible_research.html"><a href="02_reproducible_research.html#the-code"><i class="fa fa-check"></i><b>2.0.2</b> The code</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="03_guerilla_framework.html"><a href="03_guerilla_framework.html"><i class="fa fa-check"></i><b>3</b> Data Management</a></li>
+<li class="chapter" data-level="3" data-path="03_guerilla_framework.html"><a href="03_guerilla_framework.html"><i class="fa fa-check"></i><b>3</b> Data Management</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="06_parameter.html"><a href="06_parameter.html"><i class="fa fa-check"></i><b>3.1</b> Parameterized reports</a></li>
+<li class="chapter" data-level="3.2" data-path="06_parameter.html"><a href="06_parameter.html#the-parameterized-covid-19-report"><i class="fa fa-check"></i><b>3.2</b> The parameterized COVID-19 report</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="06_parameter.html"><a href="06_parameter.html#the-parameters"><i class="fa fa-check"></i><b>3.2.1</b> The parameters</a></li>
+<li class="chapter" data-level="3.2.2" data-path="06_parameter.html"><a href="06_parameter.html#rendering-the-report"><i class="fa fa-check"></i><b>3.2.2</b> Rendering the report</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="06_parameter.html"><a href="06_parameter.html#altering-parameters"><i class="fa fa-check"></i><b>3.3</b> Altering parameters</a></li>
+</ul></li>
 <li class="chapter" data-level="4" data-path="07_Relational_Databases.html"><a href="07_Relational_Databases.html"><i class="fa fa-check"></i><b>4</b> Relational data and databases</a>
 <ul>
 <li class="chapter" data-level="" data-path="07_Relational_Databases.html"><a href="07_Relational_Databases.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
@@ -182,6 +191,10 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="" data-path="07_Relational_Databases.html"><a href="07_Relational_Databases.html#life-expectancy"><i class="fa fa-check"></i>Life expectancy</a></li>
 </ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="08_Rpackage.html"><a href="08_Rpackage.html"><i class="fa fa-check"></i><b>5</b> Self-made R package</a>
+<ul>
+<li class="chapter" data-level="" data-path="08_Rpackage.html"><a href="08_Rpackage.html#introduction-1"><i class="fa fa-check"></i>Introduction</a></li>
 </ul></li>
 </ul>
 
@@ -212,14 +225,41 @@ Figure 3.1: Screenshot of my directory tree
 </p>
 </div>
 
-</div>
+<p>Gen Expressie</p>
+<table style="width:7%;">
+<colgroup>
+<col width="6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>## Introduction
+As of recently, the Institute of Life Sciences (ILC) can perform long-read-sequencing using a MinION sequencer. The MinION sequencer is a small and portable device capable of performing DNA sequencing. DNA sequencing, the process of reading part or all of the DNA of an organism, can be done in both a long-read method or short-read method. Long read sequencing has certain advantages and disadvantages over short-read-sequencing. The pro of using long-read-sequencing is, obvious by the name, that it’s able to read longer seqeunces. A downside to long-read sequencing is that the accuracy per read can be much lower than that of short-read sequencing. The ILC has used the MinION for various reasons, such as getting an idea of gene expression by performing RNA sequencing on human cells. Recently, RNA sequencing has been used to generate RNA sequencing data for MCF7 cells.</td>
+</tr>
+<tr class="even">
+<td>MCF7 cells are commonly used in studies that focus on the development of cancer treatment. Due to the number of variants available, it has applications in development of chemotherapeutic drugs and understanding drug resistance. Since the usage of the MinION sequencer is relatively new the ILC wants to know whether the data they are generating is of good quality. In order to accomplish this the ILC wants to compare their data to published data about previous research surrounding MCF7 cells and their expression. A study has been found which has performed RNA sequencing using a MinION sequencer on MCF7 cells and has made their data public <span class="citation">(<a href="#ref-chenSystematicBenchmarkNanopore2021" role="doc-biblioref"><strong>chenSystematicBenchmarkNanopore2021?</strong></a>)</span>.</td>
+</tr>
+<tr class="odd">
+<td>## Endgoal
+In order to make the comparison reproducible for future data, an R package needs to be written that follows the exact method of data manipulation used in the paper. To start, we received the fastq-files as a result of the sequencing. These fastq-files will be used as input for a Rmarkdown file, containing bash scripts that will not only check the quality of these files, but also convert them into .BAM files. The quality check is an important start of the process, we obvously want to check if the sequencing gave us good enough results before we even think about visualising the expression. If the quality is deemed good enough, the .BAM files will be used as input for the functions that will be in our R package. First of all, they will be aligned with a reference genome using <a href="https://github.com/lh3/minimap2">Minimap2</a>. After they’ve been aligned, <a href="https://github.com/GoekeLab/bambu">Bambu</a> will be used for transcript quantification. Finally, differential gene expression will be analysed by <a href="https://github.com/mikelove/DESeq2">DESeq2</a>. After successfully processing the generated data through the pipeline the quality of the results from the ILC can be compared to that of the paper, to get an idea of the quality.</td>
+</tr>
+<tr class="even">
+<td>Between all these steps (and at the end) the data will be visualised in graphs such as scatterplots, heatmaps etc.This will all be sent to our tutor, Chris van Oevelen.</td>
+</tr>
+<tr class="odd">
+<td><!--chapter:end:04_genexpressie.Rmd--></td>
+</tr>
+<tr class="even">
+<td># Parameterized report on COVID-19</td>
+</tr>
+</tbody>
+</table>
             </section>
 
           </div>
         </div>
       </div>
 <a href="02_reproducible_research.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="07_Relational_Databases.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="06_parameter.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

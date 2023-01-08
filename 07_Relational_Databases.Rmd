@@ -16,6 +16,13 @@ This assignment was focused on learning the basics of the SQL language and how t
 
 I started by creating three data frames out of files and making them tidy.
 
+```{r setup sql, include=FALSE}
+library(here)
+library(tidyverse)
+library(DBI)
+library(RPostgres)
+```
+
 ```{r import and tidy}
 ## Import, first 11 lines are metadata
 flu_data <- read_csv("raw_data/flu_data.csv", skip = 11)
@@ -56,7 +63,7 @@ con <- dbConnect(RPostgres::Postgres(),
                  host="localhost", 
                  port="5432", 
                  user="postgres", 
-                 password=".") # Hide my real password
+                 password="Asdfghjkl1910!") # Hide my real password
 ```
 
 ```{r insert in DBeaver, eval = FALSE}
