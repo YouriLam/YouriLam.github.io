@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | Portfolio</title>
-  <meta name="description" content="Page not found | Portfolio" />
+  <title>Chapter 7 Self-made R package | Portfolio</title>
+  <meta name="description" content="Chapter 7 Self-made R package | Portfolio" />
   <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | Portfolio" />
+  <meta property="og:title" content="Chapter 7 Self-made R package | Portfolio" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | Portfolio" />
+  <meta name="twitter:title" content="Chapter 7 Self-made R package | Portfolio" />
   
   
   
@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
+<link rel="prev" href="06_Relational_Databases.html"/>
 
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -219,18 +219,48 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="self-made-r-package" class="section level1" number="7">
+<h1><span class="header-section-number">Chapter 7</span> Self-made R package</h1>
+<div id="introduction-2" class="section level2 unnumbered">
+<h2>Introduction</h2>
+<p>In this assignment I created a R package to support my portfolio. I named it ‘portfouri’, which is a combination of my own name and the word ‘portfolio’. The name was available, so I set up the project and the github repository to get started.</p>
+<p>Originally, I wanted to make a package that would reduce duplicate code in my portfolio. But I couldn’t really find any duplicate code. So, to make my life easier, I decided to write functions that would help me with <a href="https://yourilam.github.io/07_Relational_Databases.html">this assignment</a>. There are 4 functions available in this package:</p>
+A package to support my portfolio would reduce duplicated code. But scanning through my portfolio, I noticed that there wasn’t a lot of code or duplicated code. Luckily, i found some in the “Relational data and databases” assignment that would work for this. The package that i made contains two functions:
+<ul>
+<li>
+cont_finder() -&gt; Checks what continent the dataset sees your country in.
+</li>
+<li>
+country_finder() -&gt; Finds all the countries in a given continent.
+</li>
+<li>
+life_expentancy_graph() -&gt; Takes the difference in life expectancy, taken from countries all residing in the same continent, in the same year, and visualizes this.
+</li>
+<li>
+population_finder() -&gt; Finds the total population for the country, during the year of your choice.
+</li>
+</ul>
+<p>For the manual and contents of the package, please visit <a href="https://github.com/YouriLam/portfouri">the portfouri github repository</a>.</p>
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div class="csl-entry">
+Buecker, Susanne, Kai T. Horstmann, Julia Krasko, Sarah Kritzler, Sophia Terwiel, Till Kaiser, and Maike Luhmann. 2020. <span>“Changes in Daily Loneliness for <span>German</span> Residents During the First Four Weeks of the <span>COVID-19</span> Pandemic.”</span> <em>Social Science &amp; Medicine</em> 265 (November): 113541. <a href="https://doi.org/10.1016/j.socscimed.2020.113541">https://doi.org/10.1016/j.socscimed.2020.113541</a>.
+</div>
+<div class="csl-entry">
+Chen, Vincent Chin-Hung, Tsai-Ching Hsu, Li-Jeng Chen, Hong-Chun Chou, Jun-Cheng Weng, and Bor-Show Tzang. 2017. <span>“Effects of Taurine on Resting-State <span class="nocase">fMRI</span> Activity in Spontaneously Hypertensive Rats.”</span> Edited by Yi-Hsien Hsieh. <em>PLOS ONE</em> 12 (7): e0181122. <a href="https://doi.org/10.1371/journal.pone.0181122">https://doi.org/10.1371/journal.pone.0181122</a>.
+</div>
+<div class="csl-entry">
+Sumner, Josh, Leah Haynes, Sarah Nathan, Cynthia Hudson-Vitale, and Leslie D. McIntosh. 2020. <span>“Reproducibility and Reporting Practices in <span>COVID-19</span> Preprint Manuscripts.”</span> Preprint. <span>Health Informatics</span>. <a href="https://doi.org/10.1101/2020.03.24.20042796">https://doi.org/10.1101/2020.03.24.20042796</a>.
+</div>
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
+<a href="06_Relational_Databases.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>
@@ -262,7 +292,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/YouriLam/YouriLam.github.io/edit/main/%s",
+"link": "https://github.com/YouriLam/YouriLam.github.io/edit/main/07_Rpackage.Rmd",
 "text": "Edit"
 },
 "history": {

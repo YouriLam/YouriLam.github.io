@@ -1,9 +1,3 @@
----
-title: "Relational databases"
-author: "Youri Lam"
-date: "`r Sys.Date()`"
-output: html_document
----
 # Relational data and databases
 
 ## Introduction {-}
