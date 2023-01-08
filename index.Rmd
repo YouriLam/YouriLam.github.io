@@ -15,7 +15,7 @@ link-citations: yes
 new_session: yes
 ---
 
-```{r libraries, echo=FALSE}
+```{r libraries, echo=FALSE, include=FALSE}
 library(here)
 library(knitr)
 library(fs) 
@@ -34,7 +34,7 @@ library(broom.mixed)
 devtools::install_github("uashogeschoolutrecht/toolboxr")
 ```
 
-```{r setup, echo=FALSE}
+```{r setup, echo=FALSE, include=FALSE}
 knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown'
 ), 'packages.bib')
