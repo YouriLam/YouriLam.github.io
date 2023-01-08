@@ -32,6 +32,8 @@ library(reshape2)
 library(lme4)
 library(broom.mixed)
 library(portfouri)
+library(plotly)
+library(scales)
 devtools::install_github("uashogeschoolutrecht/toolboxr")
 ```
 

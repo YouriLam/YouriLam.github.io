@@ -71,6 +71,9 @@ dbWriteTable(con, "dengue", dengue_tidy)
 
 Now that the tables are imported, it is required to check for certain things inside of them. The first thing I checked were the 'NULL' values.
 
+<details>
+
+<summary>Checking for NULL values</summary>
 ```{sql, connection = con}
 SELECT *
   FROM gapminder
@@ -107,10 +110,15 @@ SELECT *
 WHERE "Country" IS NULL;
 ```
  
+</details>
+
 Turns out there were no 'NULL' values in all these tables, which is good. 
 
-Next to checking for 'NULL' values, I also wondered what the total number of cases were and which countries had the highest number of cases. To check this, I used the following scripts.
+Next to checking for 'NULL' values, I also wondered what the total number of cases were. To check this, I used the following scripts.
 
+<details>
+
+<summary>The total number of cases</summary>
 ```{sql, connection = con}
 SELECT SUM("Value") --calculate the total number of cases
   FROM dengue;
@@ -120,6 +128,8 @@ SELECT SUM("Value") --calculate the total number of cases
 SELECT SUM("Value") --calculate the total number of cases
   FROM flu;
 ```
+
+</details>
 
 For a good analysis of the different data they need to be joined together in one table with the important columns. I created a tabel combining all three tables. In my case, I decided to focus on the period between 2002 and 2015. See below for the SQL and R code.
 
