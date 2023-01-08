@@ -5,7 +5,7 @@ date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
-bibliography: bibliography.bib
+bibliography: '`r rbbt::bbt_write_bib("bibliography.bib", overwrite = TRUE)`'
 biblio-style: apalike
 params:
   country: "Netherlands"
@@ -36,6 +36,7 @@ library(plotly)
 library(scales)
 library(DBI)
 library(RPostgres)
+library(rbbt)
 devtools::install_github("uashogeschoolutrecht/toolboxr")
 ```
 
