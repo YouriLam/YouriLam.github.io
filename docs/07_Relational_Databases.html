@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Relational data and databases | Relational databases</title>
+  <meta name="description" content="Chapter 4 Relational data and databases | Relational databases" />
+  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Relational data and databases | Relational databases" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Relational data and databases | Relational databases" />
+  
+  
+  
+
+<meta name="author" content="Youri Lam" />
+
+
+<meta name="date" content="2023-01-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="03_guerilla_framework.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="toc-logo"><h2 class=".paddingtitel ">Portfolio of Youri Lam</h2></li>
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Curriculum Vitae</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#contact"><i class="fa fa-check"></i>Contact</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#profile"><i class="fa fa-check"></i>Profile</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#education"><i class="fa fa-check"></i>Education</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#experience"><i class="fa fa-check"></i>Experience</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#skills"><i class="fa fa-check"></i>Skills</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#languages"><i class="fa fa-check"></i>Languages</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="01_elegans_experiment.html"><a href="01_elegans_experiment.html"><i class="fa fa-check"></i><b>1</b> Analyzing and visualizing data</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="01_elegans_experiment.html"><a href="01_elegans_experiment.html#preparing-the-data"><i class="fa fa-check"></i><b>1.1</b> Preparing the data</a></li>
+<li class="chapter" data-level="1.2" data-path="01_elegans_experiment.html"><a href="01_elegans_experiment.html#normalizing-the-data"><i class="fa fa-check"></i><b>1.2</b> Normalizing the data</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="02_reproducible_research.html"><a href="02_reproducible_research.html"><i class="fa fa-check"></i><b>2</b> Reproducible Research</a>
+<ul>
+<li class="chapter" data-level="2.0.1" data-path="02_reproducible_research.html"><a href="02_reproducible_research.html#the-article"><i class="fa fa-check"></i><b>2.0.1</b> The article</a></li>
+<li class="chapter" data-level="2.0.2" data-path="02_reproducible_research.html"><a href="02_reproducible_research.html#the-code"><i class="fa fa-check"></i><b>2.0.2</b> The code</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="03_guerilla_framework.html"><a href="03_guerilla_framework.html"><i class="fa fa-check"></i><b>3</b> Data Management</a></li>
+<li class="chapter" data-level="4" data-path="07_Relational_Databases.html"><a href="07_Relational_Databases.html"><i class="fa fa-check"></i><b>4</b> Relational data and databases</a>
+<ul>
+<li class="chapter" data-level="" data-path="07_Relational_Databases.html"><a href="07_Relational_Databases.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="07_Relational_Databases.html"><a href="07_Relational_Databases.html#dbeaver-connection"><i class="fa fa-check"></i>DBeaver connection</a></li>
+<li class="chapter" data-level="" data-path="07_Relational_Databases.html"><a href="07_Relational_Databases.html#inspection"><i class="fa fa-check"></i>Inspection</a></li>
+<li class="chapter" data-level="" data-path="07_Relational_Databases.html"><a href="07_Relational_Databases.html#visualisations"><i class="fa fa-check"></i>Visualisations</a>
+<ul>
+<li class="chapter" data-level="" data-path="07_Relational_Databases.html"><a href="07_Relational_Databases.html#life-expectancy"><i class="fa fa-check"></i>Life expectancy</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Relational databases</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="relational-data-and-databases" class="section level1" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Relational data and databases</h1>
+<div id="introduction" class="section level2 unnumbered">
+<h2>Introduction</h2>
+<p>This assignment was focused on learning the basics of the SQL language and how to work this around relational data and databases.</p>
+<hr />
+</div>
+<div id="dbeaver-connection" class="section level2 unnumbered">
+<h2>DBeaver connection</h2>
+<p>I started by creating three data frames out of files and making them tidy.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="07_Relational_Databases.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Import, first 11 lines are metadata</span></span>
+<span id="cb26-2"><a href="07_Relational_Databases.html#cb26-2" aria-hidden="true" tabindex="-1"></a>flu_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;raw_data/flu_data.csv&quot;</span>, <span class="at">skip =</span> <span class="dv">11</span>)</span>
+<span id="cb26-3"><a href="07_Relational_Databases.html#cb26-3" aria-hidden="true" tabindex="-1"></a>dengue_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;raw_data/dengue_data.csv&quot;</span>, <span class="at">skip =</span> <span class="dv">11</span>)</span>
+<span id="cb26-4"><a href="07_Relational_Databases.html#cb26-4" aria-hidden="true" tabindex="-1"></a>gapminder_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;raw_data/gapminder.csv&quot;</span>)</span>
+<span id="cb26-5"><a href="07_Relational_Databases.html#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Make tidy. Gapminder doesn&#39;t need to be made tidy, just renaming some rows for future use.</span></span>
+<span id="cb26-6"><a href="07_Relational_Databases.html#cb26-6" aria-hidden="true" tabindex="-1"></a>flu_tidy <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(<span class="at">data =</span> flu_data, <span class="at">cols =</span> <span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">30</span>), <span class="at">names_to =</span> <span class="st">&quot;Country&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;Value&quot;</span>)</span>
+<span id="cb26-7"><a href="07_Relational_Databases.html#cb26-7" aria-hidden="true" tabindex="-1"></a>flu_tidy <span class="ot">&lt;-</span> flu_tidy <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">Date =</span> <span class="fu">str_sub</span>(Date, <span class="dv">1</span>, <span class="dv">4</span>))</span>
+<span id="cb26-8"><a href="07_Relational_Databases.html#cb26-8" aria-hidden="true" tabindex="-1"></a>flu_tidy <span class="ot">&lt;-</span> flu_tidy <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="st">&quot;Year&quot;</span> <span class="ot">=</span> <span class="st">&quot;Date&quot;</span>)</span>
+<span id="cb26-9"><a href="07_Relational_Databases.html#cb26-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-10"><a href="07_Relational_Databases.html#cb26-10" aria-hidden="true" tabindex="-1"></a>dengue_tidy <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(<span class="at">data =</span> dengue_data, <span class="at">cols =</span> <span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">11</span>), <span class="at">names_to =</span> <span class="st">&quot;Country&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;Value&quot;</span>)</span>
+<span id="cb26-11"><a href="07_Relational_Databases.html#cb26-11" aria-hidden="true" tabindex="-1"></a>dengue_tidy <span class="ot">&lt;-</span> dengue_tidy <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">Date =</span> <span class="fu">str_sub</span>(Date, <span class="dv">1</span>, <span class="dv">4</span>))</span>
+<span id="cb26-12"><a href="07_Relational_Databases.html#cb26-12" aria-hidden="true" tabindex="-1"></a>dengue_tidy <span class="ot">&lt;-</span> dengue_tidy <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="st">&quot;Year&quot;</span> <span class="ot">=</span> <span class="st">&quot;Date&quot;</span>)</span>
+<span id="cb26-13"><a href="07_Relational_Databases.html#cb26-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-14"><a href="07_Relational_Databases.html#cb26-14" aria-hidden="true" tabindex="-1"></a>gapminder_data <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(gapminder_data)</span>
+<span id="cb26-15"><a href="07_Relational_Databases.html#cb26-15" aria-hidden="true" tabindex="-1"></a>gapminder_data<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="fu">as.character</span>(gapminder_data<span class="sc">$</span>year)</span>
+<span id="cb26-16"><a href="07_Relational_Databases.html#cb26-16" aria-hidden="true" tabindex="-1"></a>gapminder_data <span class="ot">&lt;-</span> gapminder_data <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="st">&quot;Year&quot;</span> <span class="ot">=</span> <span class="st">&quot;year&quot;</span>)</span>
+<span id="cb26-17"><a href="07_Relational_Databases.html#cb26-17" aria-hidden="true" tabindex="-1"></a>gapminder_data <span class="ot">&lt;-</span> gapminder_data <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="st">&quot;Country&quot;</span> <span class="ot">=</span> <span class="st">&quot;country&quot;</span>)</span></code></pre></div>
+<p>An important part of relational data is enabling comparison across different data frame. The data frames are now similar and can be stored into csv and rds files.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="07_Relational_Databases.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Export data frames as csv and rds</span></span>
+<span id="cb27-2"><a href="07_Relational_Databases.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(flu_tidy, <span class="st">&quot;flu_tidy.csv&quot;</span>)</span>
+<span id="cb27-3"><a href="07_Relational_Databases.html#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(dengue_tidy, <span class="st">&quot;dengue_tidy.csv&quot;</span>)</span>
+<span id="cb27-4"><a href="07_Relational_Databases.html#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(gapminder_data, <span class="st">&quot;gapminder_tidy.csv&quot;</span>)</span>
+<span id="cb27-5"><a href="07_Relational_Databases.html#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(flu_tidy, <span class="st">&quot;flu_tidy.rds&quot;</span>)</span>
+<span id="cb27-6"><a href="07_Relational_Databases.html#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(dengue_tidy, <span class="st">&quot;dengue_tidy.rds&quot;</span>)</span>
+<span id="cb27-7"><a href="07_Relational_Databases.html#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(gapminder_data, <span class="st">&quot;gapminder_tidy.rds&quot;</span>)</span></code></pre></div>
+<p>DBeaver and R were connected (my real password is hidden) and the tables were inserted into the ‘workflowsdb’ database in DBeaver for inspection.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="07_Relational_Databases.html#cb28-1" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RPostgres<span class="sc">::</span><span class="fu">Postgres</span>(), </span>
+<span id="cb28-2"><a href="07_Relational_Databases.html#cb28-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">dbname =</span> <span class="st">&quot;workflowsdb&quot;</span>, </span>
+<span id="cb28-3"><a href="07_Relational_Databases.html#cb28-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">host=</span><span class="st">&quot;localhost&quot;</span>, </span>
+<span id="cb28-4"><a href="07_Relational_Databases.html#cb28-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">port=</span><span class="st">&quot;5432&quot;</span>, </span>
+<span id="cb28-5"><a href="07_Relational_Databases.html#cb28-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">user=</span><span class="st">&quot;postgres&quot;</span>, </span>
+<span id="cb28-6"><a href="07_Relational_Databases.html#cb28-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">password=</span><span class="st">&quot;.&quot;</span>) <span class="co"># Hide my real password</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="07_Relational_Databases.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(con, <span class="st">&quot;gapminder&quot;</span>, gapminder_data)</span>
+<span id="cb29-2"><a href="07_Relational_Databases.html#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(con, <span class="st">&quot;flu&quot;</span>, flu_tidy)</span>
+<span id="cb29-3"><a href="07_Relational_Databases.html#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(con, <span class="st">&quot;dengue&quot;</span>, dengue_tidy)</span></code></pre></div>
+<hr />
+</div>
+<div id="inspection" class="section level2 unnumbered">
+<h2>Inspection</h2>
+<p>Now that the tables are imported, it is required to check for certain things inside of them. The first thing I checked were the ‘NULL’ values.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb30-1"><a href="07_Relational_Databases.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb30-2"><a href="07_Relational_Databases.html#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> gapminder</span>
+<span id="cb30-3"><a href="07_Relational_Databases.html#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="ot">&quot;Year&quot;</span> <span class="kw">IS</span> <span class="kw">NULL</span>; <span class="co">--make sure no important values are missing</span></span></code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-32">Table 4.1: </span>0 records</caption>
+<colgroup>
+<col width="9%" />
+<col width="5%" />
+<col width="19%" />
+<col width="18%" />
+<col width="11%" />
+<col width="12%" />
+<col width="4%" />
+<col width="11%" />
+<col width="7%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Country</th>
+<th align="left">Year</th>
+<th align="right">infant_mortality</th>
+<th align="right">life_expectancy</th>
+<th align="right">fertility</th>
+<th align="right">population</th>
+<th align="right">gdp</th>
+<th align="left">continent</th>
+<th align="left">region</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb31-1"><a href="07_Relational_Databases.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb31-2"><a href="07_Relational_Databases.html#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> gapminder</span>
+<span id="cb31-3"><a href="07_Relational_Databases.html#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="ot">&quot;Country&quot;</span> <span class="kw">IS</span> <span class="kw">NULL</span>;</span></code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-33">Table 4.2: </span>0 records</caption>
+<colgroup>
+<col width="9%" />
+<col width="5%" />
+<col width="19%" />
+<col width="18%" />
+<col width="11%" />
+<col width="12%" />
+<col width="4%" />
+<col width="11%" />
+<col width="7%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Country</th>
+<th align="left">Year</th>
+<th align="right">infant_mortality</th>
+<th align="right">life_expectancy</th>
+<th align="right">fertility</th>
+<th align="right">population</th>
+<th align="right">gdp</th>
+<th align="left">continent</th>
+<th align="left">region</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb32-1"><a href="07_Relational_Databases.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb32-2"><a href="07_Relational_Databases.html#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> dengue</span>
+<span id="cb32-3"><a href="07_Relational_Databases.html#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="ot">&quot;Year&quot;</span> <span class="kw">IS</span> <span class="kw">NULL</span>;</span></code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-34">Table 4.3: </span>0 records</caption>
+<thead>
+<tr class="header">
+<th align="left">Year</th>
+<th align="left">Country</th>
+<th align="right">Value</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb33-1"><a href="07_Relational_Databases.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb33-2"><a href="07_Relational_Databases.html#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> dengue</span>
+<span id="cb33-3"><a href="07_Relational_Databases.html#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="ot">&quot;Country&quot;</span> <span class="kw">IS</span> <span class="kw">NULL</span>;</span></code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-35">Table 4.4: </span>0 records</caption>
+<thead>
+<tr class="header">
+<th align="left">Year</th>
+<th align="left">Country</th>
+<th align="right">Value</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb34-1"><a href="07_Relational_Databases.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb34-2"><a href="07_Relational_Databases.html#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> flu</span>
+<span id="cb34-3"><a href="07_Relational_Databases.html#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="ot">&quot;Year&quot;</span> <span class="kw">IS</span> <span class="kw">NULL</span>;</span></code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-36">Table 4.5: </span>0 records</caption>
+<thead>
+<tr class="header">
+<th align="left">Year</th>
+<th align="left">Country</th>
+<th align="right">Value</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb35-1"><a href="07_Relational_Databases.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb35-2"><a href="07_Relational_Databases.html#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> flu</span>
+<span id="cb35-3"><a href="07_Relational_Databases.html#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="ot">&quot;Country&quot;</span> <span class="kw">IS</span> <span class="kw">NULL</span>;</span></code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-37">Table 4.6: </span>0 records</caption>
+<thead>
+<tr class="header">
+<th align="left">Year</th>
+<th align="left">Country</th>
+<th align="right">Value</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</div>
+<p>Turns out there were no ‘NULL’ values in all these tables, which is good.</p>
+<p>Next to checking for ‘NULL’ values, I also wondered what the total number of cases were and which countries had the highest number of cases. To check this, I used the following scripts.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb36-1"><a href="07_Relational_Databases.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">SUM</span>(<span class="ot">&quot;Value&quot;</span>) <span class="co">--calculate the total number of cases</span></span>
+<span id="cb36-2"><a href="07_Relational_Databases.html#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> dengue;</span></code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-38">Table 4.7: </span>1 records</caption>
+<thead>
+<tr class="header">
+<th align="right">sum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">870.376</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb37-1"><a href="07_Relational_Databases.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">SUM</span>(<span class="ot">&quot;Value&quot;</span>) <span class="co">--calculate the total number of cases</span></span>
+<span id="cb37-2"><a href="07_Relational_Databases.html#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> flu;</span></code></pre></div>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-39">Table 4.8: </span>1 records</caption>
+<thead>
+<tr class="header">
+<th align="right">sum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">8179518</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For a good analysis of the different data they need to be joined together in one table with the important columns. I created a tabel combining all three tables. In my case, I decided to focus on the period between 2002 and 2015. See below for the SQL and R code.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="07_Relational_Databases.html#cb38-1" aria-hidden="true" tabindex="-1"></a>gapminder_filtered <span class="ot">&lt;-</span> gapminder_data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">between</span>(Year, <span class="dv">2002</span>, <span class="dv">2015</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="07_Relational_Databases.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(con, <span class="st">&quot;gapminder_filtered&quot;</span>, gapminder_filtered)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="07_Relational_Databases.html#cb40-1" aria-hidden="true" tabindex="-1"></a>flu_dengue_combined <span class="ot">&lt;-</span> <span class="fu">left_join</span>(flu_tidy, dengue_tidy, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>))</span>
+<span id="cb40-2"><a href="07_Relational_Databases.html#cb40-2" aria-hidden="true" tabindex="-1"></a>flu_dengue_gapminder_combined <span class="ot">&lt;-</span> <span class="fu">left_join</span>(flu_dengue_combined, gapminder_filtered, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>))</span>
+<span id="cb40-3"><a href="07_Relational_Databases.html#cb40-3" aria-hidden="true" tabindex="-1"></a>flu_dengue_gapminder_combined <span class="ot">&lt;-</span> flu_dengue_gapminder_combined <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="st">&quot;Flu&quot;</span> <span class="ot">=</span> <span class="st">&quot;Value.x&quot;</span>)</span>
+<span id="cb40-4"><a href="07_Relational_Databases.html#cb40-4" aria-hidden="true" tabindex="-1"></a>flu_dengue_gapminder_combined <span class="ot">&lt;-</span> flu_dengue_gapminder_combined <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="st">&quot;Dengue&quot;</span> <span class="ot">=</span> <span class="st">&quot;Value.y&quot;</span>)</span></code></pre></div>
+<hr />
+</div>
+<div id="visualisations" class="section level2 unnumbered">
+<h2>Visualisations</h2>
+<p>Now that the dataset had been combined, it is possible to make visualisations of this. In my <a href="https://yourilam.github.io/08_Rpackage.html">self-made Rpackage</a> I made a function that will help a bit with visualising. With this dataset, the following graphs can be made:</p>
+<div id="life-expectancy" class="section level3 unnumbered">
+<h3>Life expectancy</h3>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="07_Relational_Databases.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(flu_dengue_gapminder_combined, <span class="st">&quot;raw_data/package.csv&quot;</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span>
+<span id="cb41-2"><a href="07_Relational_Databases.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">life_expectancy_graph</span>(<span class="st">&quot;Europe&quot;</span>,<span class="st">&quot;2002&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown_site_files/figure-html/visualisation1%20life%20expectancy-1.png" width="672" />
+<em>Figure 1: Bargraph of the life expectancy for every country in Europe in 2002.</em></p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="07_Relational_Databases.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">life_expectancy_graph</span>(<span class="st">&quot;Europe&quot;</span>,<span class="st">&quot;2012&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown_site_files/figure-html/visualisation2%20life%20expectancy-1.png" width="672" />
+<em>Figure 2: Bargraph of the life expectancy for every country in Europe in 2015.</em></p>
+<p>###One other visualisation</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="07_Relational_Databases.html#cb43-1" aria-hidden="true" tabindex="-1"></a>dengue_brazil <span class="ot">&lt;-</span> flu_dengue_gapminder_combined <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Country <span class="sc">==</span> <span class="st">&quot;Brazil&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(Dengue, Year)</span>
+<span id="cb43-2"><a href="07_Relational_Databases.html#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> dengue_brazil) <span class="sc">+</span> <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Dengue, <span class="at">fill =</span> Year), <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Development of dengue in Brazil each year&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown_site_files/figure-html/visualisation3%20dengue-1.png" width="672" />
+<em>Figure 3: Bargraph of the amount of dengue cases in Brazil every year</em></p>
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div class="csl-entry">
+Buecker, Susanne, Kai T. Horstmann, Julia Krasko, Sarah Kritzler, Sophia Terwiel, Till Kaiser, and Maike Luhmann. 2020. <span>“Changes in Daily Loneliness for <span>German</span> Residents During the First Four Weeks of the <span>COVID-19</span> Pandemic.”</span> <em>Social Science &amp; Medicine</em> 265 (November): 113541. <a href="https://doi.org/10.1016/j.socscimed.2020.113541">https://doi.org/10.1016/j.socscimed.2020.113541</a>.
+</div>
+<div class="csl-entry">
+Chen, Vincent Chin-Hung, Tsai-Ching Hsu, Li-Jeng Chen, Hong-Chun Chou, Jun-Cheng Weng, and Bor-Show Tzang. 2017. <span>“Effects of Taurine on Resting-State <span class="nocase">fMRI</span> Activity in Spontaneously Hypertensive Rats.”</span> Edited by Yi-Hsien Hsieh. <em>PLOS ONE</em> 12 (7): e0181122. <a href="https://doi.org/10.1371/journal.pone.0181122">https://doi.org/10.1371/journal.pone.0181122</a>.
+</div>
+<div class="csl-entry">
+Sumner, Josh, Leah Haynes, Sarah Nathan, Cynthia Hudson-Vitale, and Leslie D. McIntosh. 2020. <span>“Reproducibility and Reporting Practices in <span>COVID-19</span> Preprint Manuscripts.”</span> Preprint. <span>Health Informatics</span>. <a href="https://doi.org/10.1101/2020.03.24.20042796">https://doi.org/10.1101/2020.03.24.20042796</a>.
+</div>
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="03_guerilla_framework.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/YouriLam/YouriLam.github.io/edit/main/07_Relational_Databases.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown_site.pdf", "bookdown_site.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+</body>
+
+</html>

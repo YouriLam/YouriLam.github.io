@@ -2,6 +2,14 @@ fig:errorplot
 fig:scatterplotelegans
 fig:normalizedplot
 fig:screenshot
+tab:unnamed-chunk-32
+tab:unnamed-chunk-33
+tab:unnamed-chunk-34
+tab:unnamed-chunk-35
+tab:unnamed-chunk-36
+tab:unnamed-chunk-37
+tab:unnamed-chunk-38
+tab:unnamed-chunk-39
 analyzing-and-visualizing-data
 preparing-the-data
 normalizing-the-data
@@ -9,3 +17,4 @@ reproducible-research
 the-article
 the-code
 data-management
+relational-data-and-databases

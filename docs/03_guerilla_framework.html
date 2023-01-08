@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Data Management | Portfolio</title>
-  <meta name="description" content="Chapter 3 Data Management | Portfolio" />
+  <title>Chapter 3 Data Management | Relational databases</title>
+  <meta name="description" content="Chapter 3 Data Management | Relational databases" />
   <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 Data Management | Portfolio" />
+  <meta property="og:title" content="Chapter 3 Data Management | Relational databases" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Data Management | Portfolio" />
+  <meta name="twitter:title" content="Chapter 3 Data Management | Relational databases" />
   
   
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Youri Lam" />
 
 
-<meta name="date" content="2023-01-07" />
+<meta name="date" content="2023-01-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="02_reproducible_research.html"/>
-
+<link rel="next" href="07_Relational_Databases.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -173,6 +173,16 @@ div.csl-indent {
 <li class="chapter" data-level="2.0.2" data-path="02_reproducible_research.html"><a href="02_reproducible_research.html#the-code"><i class="fa fa-check"></i><b>2.0.2</b> The code</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="03_guerilla_framework.html"><a href="03_guerilla_framework.html"><i class="fa fa-check"></i><b>3</b> Data Management</a></li>
+<li class="chapter" data-level="4" data-path="07_Relational_Databases.html"><a href="07_Relational_Databases.html"><i class="fa fa-check"></i><b>4</b> Relational data and databases</a>
+<ul>
+<li class="chapter" data-level="" data-path="07_Relational_Databases.html"><a href="07_Relational_Databases.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="07_Relational_Databases.html"><a href="07_Relational_Databases.html#dbeaver-connection"><i class="fa fa-check"></i>DBeaver connection</a></li>
+<li class="chapter" data-level="" data-path="07_Relational_Databases.html"><a href="07_Relational_Databases.html#inspection"><i class="fa fa-check"></i>Inspection</a></li>
+<li class="chapter" data-level="" data-path="07_Relational_Databases.html"><a href="07_Relational_Databases.html#visualisations"><i class="fa fa-check"></i>Visualisations</a>
+<ul>
+<li class="chapter" data-level="" data-path="07_Relational_Databases.html"><a href="07_Relational_Databases.html#life-expectancy"><i class="fa fa-check"></i>Life expectancy</a></li>
+</ul></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -182,7 +192,7 @@ div.csl-indent {
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Portfolio</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Relational databases</a>
           </h1>
         </div>
 
@@ -193,8 +203,8 @@ div.csl-indent {
 <div id="data-management" class="section level1" number="3">
 <h1><span class="header-section-number">Chapter 3</span> Data Management</h1>
 <p>To keep my data manageable I use the Guerilla Analytics framework. Using this method, every project/part of my lessons are in different folders. There is also a README included to give extra information about the way it’s set up. For this assignment, we had to make our DAURII workspace tidy using this framework. You can see that is done here below:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="03_guerilla_framework.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dir_tree</span>(<span class="st">&quot;C:/Users/Youri/OneDrive/Bureaublad/daur2&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="03_guerilla_framework.html#cb28-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="fu">here</span>(<span class="st">&quot;images/directory_tree.png&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="03_guerilla_framework.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dir_tree</span>(<span class="st">&quot;C:/Users/Youri/OneDrive/Bureaublad/daur2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="03_guerilla_framework.html#cb25-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="fu">here</span>(<span class="st">&quot;images/directory_tree.png&quot;</span>))</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:screenshot"></span>
 <img src="images/directory_tree.png" alt="Screenshot of my directory tree" width="226" />
 <p class="caption">
@@ -202,25 +212,14 @@ Figure 3.1: Screenshot of my directory tree
 </p>
 </div>
 
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div class="csl-entry">
-Buecker, Susanne, Kai T. Horstmann, Julia Krasko, Sarah Kritzler, Sophia Terwiel, Till Kaiser, and Maike Luhmann. 2020. <span>“Changes in Daily Loneliness for <span>German</span> Residents During the First Four Weeks of the <span>COVID-19</span> Pandemic.”</span> <em>Social Science &amp; Medicine</em> 265 (November): 113541. <a href="https://doi.org/10.1016/j.socscimed.2020.113541">https://doi.org/10.1016/j.socscimed.2020.113541</a>.
-</div>
-<div class="csl-entry">
-Chen, Vincent Chin-Hung, Tsai-Ching Hsu, Li-Jeng Chen, Hong-Chun Chou, Jun-Cheng Weng, and Bor-Show Tzang. 2017. <span>“Effects of Taurine on Resting-State <span class="nocase">fMRI</span> Activity in Spontaneously Hypertensive Rats.”</span> Edited by Yi-Hsien Hsieh. <em>PLOS ONE</em> 12 (7): e0181122. <a href="https://doi.org/10.1371/journal.pone.0181122">https://doi.org/10.1371/journal.pone.0181122</a>.
-</div>
-<div class="csl-entry">
-Sumner, Josh, Leah Haynes, Sarah Nathan, Cynthia Hudson-Vitale, and Leslie D. McIntosh. 2020. <span>“Reproducibility and Reporting Practices in <span>COVID-19</span> Preprint Manuscripts.”</span> Preprint. <span>Health Informatics</span>. <a href="https://doi.org/10.1101/2020.03.24.20042796">https://doi.org/10.1101/2020.03.24.20042796</a>.
-</div>
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="02_reproducible_research.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="02_reproducible_research.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="07_Relational_Databases.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

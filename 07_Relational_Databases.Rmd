@@ -21,43 +21,31 @@ I started by creating three data frames out of files and making them tidy.
 flu_data <- read_csv("raw_data/flu_data.csv", skip = 11)
 dengue_data <- read_csv("raw_data/dengue_data.csv", skip = 11)
 gapminder_data <- read.csv("raw_data/gapminder.csv")
-## Make tidy. Gapminder doesn't need to be made tidy.
-flu_tidy <- flu_data %>% pivot_longer(cols = c(2:ncol(flu_data)), names_to = 'country', values_to = 'cases') %>% na.omit()
-dengue_tidy <- dengue_data %>% pivot_longer(cols = c(2:ncol(dengue_data)), names_to = 'country', values_to = 'cases') %>% na.omit()
+## Make tidy. Gapminder doesn't need to be made tidy, just renaming some rows for future use.
+flu_tidy <- pivot_longer(data = flu_data, cols = c(2:30), names_to = "Country", values_to = "Value")
+flu_tidy <- flu_tidy %>% mutate(Date = str_sub(Date, 1, 4))
+flu_tidy <- flu_tidy %>% rename("Year" = "Date")
+
+dengue_tidy <- pivot_longer(data = dengue_data, cols = c(2:11), names_to = "Country", values_to = "Value")
+dengue_tidy <- dengue_tidy %>% mutate(Date = str_sub(Date, 1, 4))
+dengue_tidy <- dengue_tidy %>% rename("Year" = "Date")
+
+gapminder_data <- as_tibble(gapminder_data)
+gapminder_data$year <- as.character(gapminder_data$year)
+gapminder_data <- gapminder_data %>% rename("Year" = "year")
+gapminder_data <- gapminder_data %>% rename("Country" = "country")
 ```
 
-An important part of relational data is enabling comparison across different data frames. The data frames do need to be adjusted first in order to accomplish this.
-
-```{r adjusting}
-## Checking classes
-class(flu_tidy$country) # character
-class(dengue_tidy$country) # character
-class(gapminder_data$country) # factor
-## Change all types into factor
-flu_tidy$country <- as.factor(flu_tidy$country)
-dengue_tidy$country <- as.factor(dengue_tidy$country)
-## Flu and dengue are specified to day instead of the year at gapminder. A 'year' column has to be made.
-flu_tidy <- flu_tidy %>% mutate(year = substr(flu_tidy$Date, start=1, stop=4))
-dengue_tidy <- dengue_tidy %>% mutate(year = substr(dengue_tidy$Date, start=1, stop=4))
-## Checking classes
-class(flu_tidy$Date) # Date
-class(dengue_tidy$Date) # Date
-class(gapminder_data$year) # integer
-## Change all types into integer
-flu_tidy$year <- as.integer(flu_tidy$year)
-dengue_tidy$year <- as.integer(dengue_tidy$year)
-```
-
-The data frames are now similar and can be stored into csv and rds files.
+An important part of relational data is enabling comparison across different data frame. The data frames are now similar and can be stored into csv and rds files.
 
 ```{r export}
 # Export data frames as csv and rds
-write.csv(flu_tidy, "flu_data_tidy.csv")
-write.csv(dengue_tidy, "dengue_data_tidy.csv")
-write.csv(gapminder_data, "gapminder_data_tidy.csv")
-saveRDS(flu_tidy, "flu_data_tidy.rds")
-saveRDS(dengue_tidy, "dengue_data_tidy.rds")
-saveRDS(gapminder_data, "gapminder_data_tidy.rds")
+write.csv(flu_tidy, "flu_tidy.csv")
+write.csv(dengue_tidy, "dengue_tidy.csv")
+write.csv(gapminder_data, "gapminder_tidy.csv")
+saveRDS(flu_tidy, "flu_tidy.rds")
+saveRDS(dengue_tidy, "dengue_tidy.rds")
+saveRDS(gapminder_data, "gapminder_tidy.rds")
 ```
 
 DBeaver and R were connected (my real password is hidden) and the tables were inserted into the 'workflowsdb' database in DBeaver for inspection.
@@ -68,7 +56,7 @@ con <- dbConnect(RPostgres::Postgres(),
                  host="localhost", 
                  port="5432", 
                  user="postgres", 
-                 password="Asdfghjkl1910!") # Hide my real password
+                 password=".") # Hide my real password
 ```
 
 ```{r insert in DBeaver, eval = FALSE}
@@ -86,249 +74,92 @@ Now that the tables are imported, it is required to check for certain things ins
 ```{sql, connection = con}
 SELECT *
   FROM gapminder
-WHERE year IS NULL; --make sure no important values are missing
+WHERE "Year" IS NULL; --make sure no important values are missing
 ```
 
 ```{sql, connection = con}
 SELECT *
   FROM gapminder
-WHERE country IS NULL;
+WHERE "Country" IS NULL;
 ```
 
 ```{sql, connection = con}
 SELECT *
   FROM dengue
-WHERE year IS NULL;
+WHERE "Year" IS NULL;
 ```
 
 ```{sql, connection = con}
 SELECT *
   FROM dengue
-WHERE country IS NULL;
+WHERE "Country" IS NULL;
 ```
 
 ```{sql, connection = con}
 SELECT *
   FROM flu
-WHERE year IS NULL;
+WHERE "Year" IS NULL;
 ```
 
 ```{sql, connection = con}
 SELECT *
   FROM flu
-WHERE country IS NULL;
+WHERE "Country" IS NULL;
 ```
  
-Turns out there were no 'NULL' values in all these tables. 
+Turns out there were no 'NULL' values in all these tables, which is good. 
 
 Next to checking for 'NULL' values, I also wondered what the total number of cases were and which countries had the highest number of cases. To check this, I used the following scripts.
 
 ```{sql, connection = con}
-SELECT SUM(cases) --calculate the total number of cases
+SELECT SUM("Value") --calculate the total number of cases
   FROM dengue;
 ```
 
 ```{sql, connection = con}
-SELECT SUM(cases) --calculate the total number of cases
+SELECT SUM("Value") --calculate the total number of cases
   FROM flu;
 ```
 
-```{sql, connection = con}
-SELECT year, country, cases*1000 AS cases1000 --look at the highest observed numbers of cases
-  FROM dengue
-WHERE cases IS NOT NULL
-ORDER BY cases1000 DESC;
+For a good analysis of the different data they need to be joined together in one table with the important columns. I created a tabel combining all three tables. In my case, I decided to focus on the period between 2002 and 2015. See below for the SQL and R code.
+
+```{r Filter correlating year}
+gapminder_filtered <- gapminder_data %>% filter(between(Year, 2002, 2015))
 ```
 
-```{sql, connection = con}
-SELECT year, country, cases --look at the highest observed numbers of cases
-  FROM flu
-WHERE cases IS NOT NULL
-ORDER BY cases DESC;
+```{r Uploading table, eval = FALSE}
+dbWriteTable(con, "gapminder_filtered", gapminder_filtered)
 ```
 
-The reason why I made cases*1000 is because I noticed  while importing that every value in the dengue dataframe was a fraction instead of a number. By multiplyng the data with 1000, i now made it a number.
-
-For a good analysis of the different, but related data, they need to be joined together in one table with the important columns. I created four joined tables, flu with dengue, dengue with gapminder, flu with gapminder and all three of them. Some tables have more countries than others, this is because the joining only joins the matching countries. See below for the SQL and R code.
-
-<img src="images/SQL_join.jpg"
-     width="300" 
-     height="900" />
-     
-_Figure 5: SQL code of inner-join._
-   
-```{r join}
-# Load joined table to object
-gapminder_flu <- read_csv("files/gapminder_flu.csv")
-gapminder_dengue <- read_csv("files/gapminder_dengue.csv")
-flu_dengue <- read_csv("files/flu_dengue.csv")
-gapminder_flu_dengue <- read_csv("files/gapminder_flu_dengue.csv")
+```{r Combining tables}
+flu_dengue_combined <- left_join(flu_tidy, dengue_tidy, by = c("Country", "Year"))
+flu_dengue_gapminder_combined <- left_join(flu_dengue_combined, gapminder_filtered, by = c("Country", "Year"))
+flu_dengue_gapminder_combined <- flu_dengue_gapminder_combined %>% rename("Flu" = "Value.x")
+flu_dengue_gapminder_combined <- flu_dengue_gapminder_combined %>% rename("Dengue" = "Value.y")
 ```
-
-As said before, there was something important that stood out to me, the dataset missed metadata.
-The cases columns didn't specify how it was measured, and this was also not written down in the metadata. This resulted in unreliable data that doesn't take in account that countries have different populations, just a count of cases isn't enough. Therefore a normalisation was necessary. I divided the cases by the population from the gapminder data and multiplied this by 100000, which seemed like a logical amount when calculating with populations. I added the results to the tables.
-
-```{r normalizing}
-gapminder_flu <- gapminder_flu %>% mutate("cases_per_100000" =gapminder_flu$flu_cases/gapminder_flu$population*100000)
-gapminder_dengue <- gapminder_dengue %>% mutate("cases_per_100000" =gapminder_dengue$dengue_cases/gapminder_dengue$population*100000)
-```
-
-----
-
-## Descriptive statistics {-}
-
-Now that the sets are normalised, descriptives can start. Starting by calculating the means and standard deviations of cases per country with the updated data.
-
-After performing the Shapiro-Wilk test, the flu seems to have 8 non normal distributed variables from a total of 29, and dengue has 5 non normal distributed variables from a total of 10. 
-As an extra test, the Levene's test shows that the flu doesn't have a variance of equility between countries.
- 
-Because of these two specifics, a Kruskal-Wallis test was chosen, because this test doesn't account for normality. The results of this test shows that both datasets have a p-value of < 2.2e-16 which tells us that there is a significance difference.
-
-To determine the differences between variables, the Dunn test was performed as a post hoc  test. The results of those are stored in separate tables of difference and no difference, but in total 114 from a total of 406 combinations of the flu show differences and 19 from a total of 45 combinations of dengue show differences.
-
-```{r despriptive statistics}
-# Obtain mean and standard deviation per country
-flu_sum <- gapminder_flu %>% 
-                        group_by(country)%>% 
-                        summarize(avg_population = round(mean(population), 0),
-                                  sd_population = round(sd(population), 0),
-                                  avg_cases_per_100000 = mean(cases_per_100000),
-                                  sd_cases_per_100000 = sd(cases_per_100000))
-dengue_sum <- gapminder_dengue %>% 
-                        group_by(country)%>% 
-                        summarize(avg_population = round(mean(population), 0),
-                                  sd_population = round(sd(population), 0),
-                                  avg_cases_per_100000 = mean(cases_per_100000),
-                                  sd_cases_per_100000 = sd(cases_per_100000))
-# To check the normality, dataframes are made with the countries 
-flu_country <- gapminder_flu %>% 
-                        select(country, cases_per_100000, year) %>% 
-                        pivot_wider(names_from = country, 
-                                    values_from = cases_per_100000) %>% 
-                        filter(year != 2002)
-dengue_country <- gapminder_dengue %>% 
-                        select(country, cases_per_100000, year) %>% 
-                        pivot_wider(names_from = country, 
-                                    values_from = cases_per_100000) %>% 
-                        filter(year != 2002)
-# Shapiro wilk 
-## Flu
-flu_stats <- data.frame(country = colnames(flu_country[,2:length(colnames(flu_country))]),
-                                     pvalue_shap = round(c(shapiro.test(flu_country$Uruguay)$p.value,
-shapiro.test(flu_country$`United States`)$p.value,
-shapiro.test(flu_country$Ukraine)$p.value,
-shapiro.test(flu_country$Switzerland)$p.value,                                            shapiro.test(flu_country$Sweden)$p.value,
-shapiro.test(flu_country$Spain)$p.value,
-shapiro.test(flu_country$`South Africa`)$p.value,
-shapiro.test(flu_country$Russia)$p.value,
-shapiro.test(flu_country$Romania)$p.value,
-shapiro.test(flu_country$Poland)$p.value,
-shapiro.test(flu_country$Peru)$p.value,
-shapiro.test(flu_country$Paraguay)$p.value,                                            shapiro.test(flu_country$Norway)$p.value,
-shapiro.test(flu_country$`New Zealand`)$p.value,
-shapiro.test(flu_country$Netherlands)$p.value,
-shapiro.test(flu_country$Mexico)$p.value,
-shapiro.test(flu_country$Japan)$p.value,
-shapiro.test(flu_country$Hungary)$p.value,
-shapiro.test(flu_country$Germany)$p.value,
-shapiro.test(flu_country$France)$p.value,                                            shapiro.test(flu_country$Chile)$p.value,
-shapiro.test(flu_country$Canada)$p.value,
-shapiro.test(flu_country$Bulgaria)$p.value,
-shapiro.test(flu_country$Brazil)$p.value,
-shapiro.test(flu_country$Bolivia)$p.value,
-shapiro.test(flu_country$Belgium)$p.value,
-shapiro.test(flu_country$Austria)$p.value,
-shapiro.test(flu_country$Australia)$p.value,                                            
-shapiro.test(flu_country$Argentina)$p.value), 4))
-## Dengue 
-dengue_stats <- data.frame(country = colnames(dengue_country[,2:length(colnames(dengue_country))]),
-                                     pvalue_shap = round(c(shapiro.test(dengue_country$Venezuela)$p.value,                                    shapiro.test(dengue_country$Thailand)$p.value,
-shapiro.test(dengue_country$Singapore)$p.value,
-shapiro.test(dengue_country$Philippines)$p.value,
-shapiro.test(dengue_country$Mexico)$p.value,
-shapiro.test(dengue_country$Indonesia)$p.value,
-shapiro.test(dengue_country$India)$p.value,
-shapiro.test(dengue_country$Brazil)$p.value,
-shapiro.test(dengue_country$Bolivia)$p.value,
-shapiro.test(dengue_country$Argentina)$p.value), 4))
-# Normality check
-flu_stats <- flu_stats %>% mutate(normal_dis = pvalue_shap>0.05) 
-# 3 out of 5 are normally distributed
-dengue_stats <- dengue_stats %>% mutate(normal_dis = pvalue_shap>0.05) 
-# 21 out of 29 are normally distributed
-# Levene test
-leveneTest(cases_per_100000 ~ country, data = gapminder_flu) # <2.2e-16
-leveneTest(cases_per_100000 ~ country, data = gapminder_dengue) # 3.228e-07
-# Kruskal Wallis test
-kruskal.test(cases_per_100000 ~ country, data = gapminder_flu) # p-value < 2.2e-16
-kruskal.test(cases_per_100000 ~ country, data = gapminder_dengue) # p-value < 2.2e-16
-# P-value of basically .0000, there is a statistically significant difference
-# Dunn post-hoc test
-dengue_dunn <- dunnTest(cases_per_100000 ~ country, 
-                                data = gapminder_dengue, method = "holm")$res
-flu_dunn <- dunnTest(cases_per_100000 ~ country, 
-                               data = gapminder_flu, method = "holm")$res
-# Check for significant differences 
-dengue_dunn <- dengue_dunn %>% mutate(different = P.adj<0.05)
-flu_dunn <- flu_dunn %>% mutate(different = P.adj<0.05)
-# Note the significant differences between countries/continents
-dengue_dunn_diff <- dengue_dunn %>% filter(different == TRUE)
-flu_dunn_diff <- flu_dunn %>% filter(different == TRUE)
-# Note the comparable countries/continents
-dengue_dunn_non <- dengue_dunn %>% filter(different == FALSE)
-flu_dunn_non <- flu_dunn %>% filter(different == FALSE)
-```
-
 ----
 
 ## Visualisations {-}
 
-According to the dataset en information in this assignment, two graphs per disease were made to showcase the data.
+Now that the dataset had been combined, it is possible to make visualisations of this. In my [self-made Rpackage](https://yourilam.github.io/08_Rpackage.html) I made a function that will help a bit with visualising. With this dataset, the following graphs can be made:
 
-### Flu {-}
+### Life expectancy {-}
 
-```{r visualisation1 flu}
-gapminder_flu %>%
-  ggplot(aes(x=continent,y=cases_per_100000, group=continent, fill=continent)) + 
-  geom_col(stat="identity")+ 
-  labs(title = "Flu cases per continent", 
-       x="Continent", 
-       y="Flu cases per 100000 residents") +
-  theme(legend.position = "right", text = element_text(size=10))
+```{r visualisation1 life expectancy}
+write.csv(flu_dengue_gapminder_combined, "raw_data/package.csv", row.names=FALSE)
+life_expectancy_graph("Europe","2002")
 ```
-_Figure 6: Bargraph of the amount of flu cases per continent._
+_Figure 1: Bargraph of the life expectancy for every country in Europe in 2002._
 
-```{r visualisation2 flu}
-ggplot(flu_dengue, aes(x=year, y=flu_cases, group = country, color = country)) + 
-  geom_point() +
-  geom_line() +
-  labs(title = "Flu cases",
-       x = "Year",
-       y = "Average dengue cases per year") +
-  theme(legend.position = "right", text = element_text(size=10))
+```{r visualisation2 life expectancy}
+life_expectancy_graph("Europe","2012")
 ```
-_Figure 7: Linegraph of average flu cases per year per country._
+_Figure 2: Bargraph of the life expectancy for every country in Europe in 2015._
 
-### Dengue {-}
+###One other visualisation
 
-```{r visualisation1 dengue}
-gapminder_dengue %>%
-  ggplot(aes(x=continent,y=cases_per_100000, group=continent, fill=continent)) + 
-  geom_col(stat="identity")+ 
-  labs(title = "Dengue cases per continent", 
-       x="Continent", 
-       y="Dengue cases per 100000 residents") +
-  theme(legend.position = "right", text = element_text(size=10))
+```{r visualisation3 dengue}
+dengue_brazil <- flu_dengue_gapminder_combined %>% filter(Country == "Brazil") %>% select(Dengue, Year)
+ggplot(data = dengue_brazil) + geom_col(aes(x = Year, y = Dengue, fill = Year), show.legend = FALSE) + labs(title = "Development of dengue in Brazil each year")
 ```
-_Figure 8: Bargraph of the amount of dengue cases per continent_
-
-```{r visualisation2 dengue}
-ggplot(flu_dengue, aes(x=year, y=dengue_cases, group = country, color = country)) + 
-  geom_point() +
-  geom_line() +
-  labs(title = "Dengue cases",
-       x = "Year",
-       y = "Average dengue cases per year") +
-  theme(legend.position = "right", text = element_text(size=10))
-```
-_Figure 9: Linegraph of average dengue cases per year per country._
+_Figure 3: Bargraph of the amount of dengue cases in Brazil every year_

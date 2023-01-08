@@ -31,6 +31,7 @@ library(dplyr)
 library(reshape2)
 library(lme4)
 library(broom.mixed)
+library(portfouri)
 devtools::install_github("uashogeschoolutrecht/toolboxr")
 ```
 
